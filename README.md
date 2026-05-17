@@ -9,6 +9,18 @@ PHPUnit, Pest, Paratest, PHPStan, Rector, and Laravel Artisan with compact
 structured JSON — but **only when an AI agent is detected**. Human terminal
 workflows are unchanged. Up to ~99.8% fewer tokens on large test suites.
 
+## Just want the library? (no skill)
+
+If you only need PAO and don't want the Claude Code skill, install it
+directly with Composer from your project root:
+
+```bash
+composer require laravel/pao --dev
+```
+
+Zero config — PAO auto-discovers its Laravel service provider and Pest
+plugin. Requires PHP `^8.3` and (for Laravel) `laravel/framework` >= 12.
+
 ## What this skill does
 
 1. **Locates** the target project's `composer.json`.
