@@ -34,21 +34,62 @@ preflight inside the project's PHP container for an accurate PHP-runtime read
 
 ## Install
 
-Copy the skill into your Claude Code skills directory:
+### Step 1 — Clone this repo
 
 ```bash
-# Personal (all projects)
-cp -r skills/laravel-pao-installer ~/.claude/skills/
-
-# Or per-project (committed with the repo)
-cp -r skills/laravel-pao-installer <your-project>/.claude/skills/
+git clone https://github.com/stan-rise/claude-skill-laravel-pao-installer.git
+cd claude-skill-laravel-pao-installer
 ```
 
-Then in Claude Code:
+### Step 2 — Copy the skill into your Claude Code skills directory
 
-> install laravel/pao in this project
+Personal — available in all your projects:
 
-or trigger explicitly via the skill name.
+```bash
+mkdir -p ~/.claude/skills
+cp -r skills/laravel-pao-installer ~/.claude/skills/
+```
+
+Or per-project — committed with the target repo, shared with your team
+(run from the target project root):
+
+```bash
+mkdir -p .claude/skills
+cp -r /path/to/claude-skill-laravel-pao-installer/skills/laravel-pao-installer .claude/skills/
+```
+
+### Step 3 — Verify it's installed
+
+```bash
+ls ~/.claude/skills/laravel-pao-installer
+# expect: SKILL.md  scripts
+```
+
+### Step 4 — Use it
+
+In Claude Code, from your Laravel / PHP project:
+
+```
+install laravel/pao in this project
+```
+
+Claude runs the preflight check, then installs `laravel/pao --dev` if the
+project is compatible — or aborts with the specific blocking reasons.
+
+### Optional — Run the preflight check manually
+
+```bash
+bash ~/.claude/skills/laravel-pao-installer/scripts/preflight.sh /path/to/your/project
+```
+
+Prints `PREFLIGHT_OK` or `PREFLIGHT_FAIL` with reasons. For Docker projects,
+run it inside the PHP container for an accurate PHP-runtime read (copy the
+script in, then exec it):
+
+```bash
+docker cp ~/.claude/skills/laravel-pao-installer/scripts/preflight.sh <php-container>:/tmp/preflight.sh
+docker exec <php-container> bash /tmp/preflight.sh /var/www
+```
 
 ## Layout
 
